@@ -3,6 +3,7 @@ package in.starx.main.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,21 +24,33 @@ public class OrderRespository {
 	public int placeOrder(Order order, String paymentMethod)
 	{
 		String placeOrderSQL = """
-				insert into orders (user_id, total_amount, status, customer_name, phone, address, order_date)
-				values (?, ?, ?, ?, ?, ?, ?)
+				INSERT INTO orders
+				(
+				 user_id,
+				 total_amount,
+				 status,
+				 customer_name,
+				 phone,
+				 address,
+				 order_date
+				)
+				VALUES
+				(
+				 ?, ?, ?, ?, ?, ?, ?
+				)
 				""";
 		
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		
 		jdbcTemplate.update(connection -> {
 			PreparedStatement ps = connection.prepareStatement(placeOrderSQL, Statement.RETURN_GENERATED_KEYS);
-			ps.setInt(1, order.getId());
-			ps.setDouble(2,  order.getTotalAmount());
-			ps.setString(3, "Pending");
-			ps.setString(4,  order.getCustomerName());
+			ps.setInt(1, order.getUserId());
+			ps.setDouble(2, order.getTotalAmount());
+			ps.setString(3, order.getStatus());
+			ps.setString(4, order.getCustomerName());
 			ps.setString(5, order.getPhone());
 			ps.setString(6, order.getAddress());
-			ps.setObject(7, LocalDateTime.now());
+			ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now()));
 			return ps;
  		}, keyHolder );
 		

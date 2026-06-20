@@ -1,71 +1,61 @@
 package in.starx.main.model;
 
 public class Food {
-	
-	private int id;
-	private String foodName;
-	private double price;
-	private String image;
-	private String category;
-	
-	public Food() {
-		
-	}
 
-	public Food(int id, String foodName, double price, String image, String category) {
-		super();
-		this.id = id;
-		this.foodName = foodName;
-		this.price = price;
-		this.image = image;
-		this.category = category;
-	}
+    private int id;
+    private String foodName;
+    private double price;
+    private String image;
+    private String category;
 
-	public int getId() {
-		return id;
-	}
+    public Food() {
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public Food(int id, String foodName, double price, String image, String category) {
+        this.id = id;
+        this.foodName = foodName;
+        this.price = price;
+        this.image = image;
+        this.category = category;
+    }
 
-	public String getFoodName() {
-		return foodName;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setFoodName(String foodName) {
-		this.foodName = foodName;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public double getPrice() {
-		return price;
-	}
+    public String getFoodName() {
+        return foodName;
+    }
 
-	public void setPrice(double price) {
-		this.price = price;
-	}
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
+    }
 
-	public String getImage() {
-		return image;
-	}
+    public double getPrice() {
+        return price;
+    }
 
-	public void setImage(String image) {
-		this.image = image;
-	}
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public String getImage() {
+        return image;
+    }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
-	
-	@Override
-	public String toString() {
-	    return "Food [id=" + id + ", foodName=" + foodName + ", price=" + price + ", image=" + image
-	            + ", category=" + category + "]";
-	}
-	
-	
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }

@@ -18,4 +18,29 @@ public class FoodService {
 	{
 		return foodRepository.getAllFoods();
 	}
+	
+	//added
+	public Food getFoodById(int id)
+	{
+	    return foodRepository.getFoodById(id);
+	}
+	
+	
+	//added 
+	public int addFood(Food food)
+	{
+	    return foodRepository.addFood(food);
+	}
+	
+	//added
+	public int updateFood(Food food)
+	{
+	    return foodRepository.updateFood(food);
+	}
+	
+	//added
+	public int deleteFood(int id)
+	{
+	    return foodRepository.deleteFood(id);
+	}
 }

@@ -95,4 +95,84 @@ public class OrderRespository {
 	    }, userId);
 	}
 	
+	//added
+	public List<Order> getAllOrders()
+	{
+	    String sql =
+	    """
+	    SELECT *
+	    FROM orders
+	    ORDER BY id DESC
+	    """;
+
+	    return jdbcTemplate.query(
+	            sql,
+	            (rs,rowNum)->{
+
+	                Order order = new Order();
+
+	                order.setId(rs.getInt("id"));
+	                order.setUserId(rs.getInt("user_id"));
+	                order.setTotalAmount(rs.getDouble("total_amount"));
+	                order.setStatus(rs.getString("status"));
+	                order.setCustomerName(rs.getString("customer_name"));
+	                order.setPhone(rs.getString("phone"));
+	                order.setAddress(rs.getString("address"));
+
+	                if(rs.getTimestamp("order_date") != null)
+	                {
+	                    order.setOrderDate(
+	                            rs.getTimestamp("order_date")
+	                            .toLocalDateTime()
+	                    );
+	                }
+
+	                return order;
+	            });
+	}
+	
+	//added
+	public int updateStatus(
+	        int orderId,
+	        String status)
+	{
+	    String sql =
+	    """
+	    UPDATE orders
+	    SET status=?
+	    WHERE id=?
+	    """;
+
+	    return jdbcTemplate.update(
+	            sql,
+	            status,
+	            orderId
+	    );
+	}
+	
+	//added
+	public Order getOrderById(int id)
+	{
+	    String sql =
+	    "SELECT * FROM orders WHERE id=?";
+
+	    return jdbcTemplate.queryForObject(
+	            sql,
+	            (rs,rowNum)->{
+
+	                Order order = new Order();
+
+	                order.setId(rs.getInt("id"));
+	                order.setCustomerName(rs.getString("customer_name"));
+	                order.setPhone(rs.getString("phone"));
+	                order.setAddress(rs.getString("address"));
+	                order.setStatus(rs.getString("status"));
+	                order.setTotalAmount(rs.getDouble("total_amount"));
+
+	                return order;
+
+	            },
+	            id
+	    );
+	}
 }

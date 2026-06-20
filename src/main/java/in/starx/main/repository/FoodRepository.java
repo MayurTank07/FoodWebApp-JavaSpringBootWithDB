@@ -41,4 +41,93 @@ public class FoodRepository {
 
 	    return foods;
 	}
+	
+	//added 
+	public int addFood(Food food)
+	{
+	    String sql =
+	    """
+	    INSERT INTO foods
+	    (
+	        food_name,
+	        price,
+	        image,
+	        category
+	    )
+	    VALUES
+	    (
+	        ?, ?, ?, ?
+	    )
+	    """;
+
+	    return jdbcTemplate.update(
+	            sql,
+	            food.getFoodName(),
+	            food.getPrice(),
+	            food.getImage(),
+	            food.getCategory()
+	    );
+	}
+	
+	//added
+	public int updateFood(Food food)
+	{
+	    String sql =
+	    """
+	    UPDATE foods
+	    SET
+	        food_name=?,
+	        price=?,
+	        image=?,
+	        category=?
+	    WHERE id=?
+	    """;
+	
+	    return jdbcTemplate.update(
+	            sql,
+	            food.getFoodName(),
+	            food.getPrice(),
+	            food.getImage(),
+	            food.getCategory(),
+	            food.getId()
+	    );
+	}
+	
+	//added
+	public int deleteFood(int id)
+	{
+	    String sql =
+	    """
+	    DELETE FROM foods
+	    WHERE id=?
+	    """;
+
+	    return jdbcTemplate.update(
+	            sql,
+	            id
+	    );
+	}
+	
+	//added
+	public Food getFoodById(int id)
+{
+    String sql = "SELECT * FROM foods WHERE id=?";
+
+    return jdbcTemplate.queryForObject(
+            sql,
+            (rs,rowNum)->{
+
+                Food food = new Food();
+
+                food.setId(rs.getInt("id"));
+                food.setFoodName(rs.getString("food_name"));
+                food.setPrice(rs.getDouble("price"));
+                food.setImage(rs.getString("image"));
+                food.setCategory(rs.getString("category"));
+
+                return food;
+            },
+            id
+    );
+	}
 }

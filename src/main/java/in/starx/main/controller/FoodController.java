@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import in.starx.main.model.Food;
 import in.starx.main.model.User;
 import in.starx.main.service.FoodService;
 import jakarta.servlet.http.HttpSession;
@@ -33,6 +36,30 @@ public class FoodController {
 	public String check()
 	{
 	    return "Foods Size : " + foodService.getAllFoodItems().size();
+	}
+	
+	
+	//added
+	@GetMapping("/edit-food/{id}")
+	public String editFoodPage(
+	        @PathVariable int id,
+	        Model model)
+	{
+	    model.addAttribute(
+	            "food",
+	            foodService.getFoodById(id)
+	    );
+
+	    return "admin/edit-food";
+	}
+	
+	//added
+	@PostMapping("/update-food")
+	public String updateFood(Food food)
+	{
+	    foodService.updateFood(food);
+
+	    return "redirect:/admin/manage-food";
 	}
 	
 }

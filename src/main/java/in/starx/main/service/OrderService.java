@@ -24,4 +24,27 @@ public class OrderService {
 	{
 		return orderRespository.getUserOrders(userId);
 	}
+	
+	// added
+	 public List<Order> getAllOrders()
+	    {
+	        return orderRespository.getAllOrders();
+	    }
+	 
+	 //added
+	 public int updateStatus(
+		        int orderId,
+		        String status)
+		{
+		    return orderRespository.updateStatus(
+		            orderId,
+		            status
+		    );
+	}
+	 
+	 //added
+	 public Order getOrderById(int id)
+	 {
+	     return orderRespository.getOrderById(id);
+	 }
 }

@@ -79,15 +79,14 @@ public class AdminController {
 	}
 
 	@GetMapping("/manage-orders")
-	public String manageOrders(Model model)
-	{
-	    model.addAttribute(
-	            "orders",
-	            orderService.getAllOrders()
-	    );
+public String manageOrders(Model model)
+{
+    model.addAttribute(
+            "orders",
+            orderService.getAllOrders());
 
-	    return "admin/manage-orders";
-	}
+    return "admin/manage-orders";
+}
 	
 	
 	
@@ -140,17 +139,16 @@ public class AdminController {
 	
 	// added for orders
 	@PostMapping("/update-order-status")
-	public String updateOrderStatus(
-	        @RequestParam int orderId,
-	        @RequestParam String status)
-	{
-	    orderService.updateStatus(
-	            orderId,
-	            status
-	    );
+public String updateOrderStatus(
+        @RequestParam int orderId,
+        @RequestParam String status)
+{
+    orderService.updateStatus(
+            orderId,
+            status);
 
-	    return "redirect:/admin/manage-orders";
-	}
+    return "redirect:/admin/manage-orders";
+}
 
 	
 	@GetMapping("/order/{id}")

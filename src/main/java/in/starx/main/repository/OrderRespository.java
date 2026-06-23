@@ -133,22 +133,22 @@ public class OrderRespository {
 	
 	//added
 	public int updateStatus(
-	        int orderId,
-	        String status)
-	{
-	    String sql =
-	    """
-	    UPDATE orders
-	    SET status=?
-	    WHERE id=?
-	    """;
+        int orderId,
+        String status)
+{
+    String sql =
+    """
+    UPDATE orders
+    SET status=?
+    WHERE id=?
+    """;
 
-	    return jdbcTemplate.update(
-	            sql,
-	            status,
-	            orderId
-	    );
-	}
+    return jdbcTemplate.update(
+            sql,
+            status,
+            orderId
+    );
+}
 	
 	//added
 	public Order getOrderById(int id)

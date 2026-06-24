@@ -1,5 +1,7 @@
 package in.starx.main.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,15 @@ public class UserService {
 	public User loginUser(String email, String password)
 	{
 		return userRepository.loginUser(email, password);
+	}
+	
+	public List<User> getAllUsers()
+	{
+		return userRepository.getAllUsers();
+	}
+	
+	public User getUserById(int id)
+	{
+		return userRepository.getUserById(id);
 	}
 }

@@ -46,4 +46,10 @@ public class OrderService {
 	 {
 	     return orderRespository.getOrderById(id);
 	 }
+	 
+	 
+	 public List<Order> getOrdersByUserId(int userId)
+	 {
+		 return orderRespository.getOrdersByUserId(userId);
+	 }
 }

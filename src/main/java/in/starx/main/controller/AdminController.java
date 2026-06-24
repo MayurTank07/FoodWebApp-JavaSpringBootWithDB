@@ -1,5 +1,7 @@
 package in.starx.main.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import in.starx.main.model.Admin;
 import in.starx.main.model.Food;
+import in.starx.main.model.Order;
+import in.starx.main.model.User;
 import in.starx.main.service.AdminService;
 import in.starx.main.service.FoodService;
 import in.starx.main.service.OrderService;
+import in.starx.main.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -29,6 +34,9 @@ public class AdminController {
 	
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/login")
 	public String loginPage() {
@@ -163,4 +171,63 @@ public String updateOrderStatus(
 
 	    return "admin/order-details";
 	}
+	
+	
+	
+	@GetMapping("/manage-users")
+	public String manageUsers(Model model)
+	{
+		model.addAttribute("users", userService.getAllUsers());
+		System.out.println("Loading manage users page");
+		return "admin/manage-users";
+	}
+	
+	
+	@GetMapping("/view-user/{id}")
+	public String viewUser(@PathVariable int id, Model model) {
+		
+		User user = userService.getUserById(id);
+		
+		List<Order> orders = orderService.getOrdersByUserId(id);
+		
+		model.addAttribute("user", user);
+		model.addAttribute("order", orders);
+		model.addAttribute("totalOrders", orders.size());
+		
+		double totalSpent = orders.stream().mapToDouble(Order::getTotalAmount).sum();  // 1000
+		
+		model.addAttribute("totalSpent", totalSpent);
+		
+		return "admin/view-user";
+		
+	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

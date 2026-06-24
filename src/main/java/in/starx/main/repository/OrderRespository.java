@@ -175,4 +175,38 @@ public class OrderRespository {
 	            id
 	    );
 	}
+	
+	
+	public List<Order> getOrdersByUserId(int userId)
+	{
+		String getOrderByUserIdSQL = """
+				SELECT * FROM orders
+				WHERE user_id = ?
+				ORDER BY id DESC
+				""";
+		
+		return jdbcTemplate.query(getOrderByUserIdSQL, (rs, rowNum)-> {
+			
+			 Order order = new Order();
+
+             order.setId(rs.getInt("id"));
+             order.setUserId(rs.getInt("user_id"));
+             
+             order.setCustomerName(rs.getString("customer_name"));
+             order.setPhone(rs.getString("phone"));
+             order.setAddress(rs.getString("address"));
+             order.setStatus(rs.getString("status"));
+             order.setTotalAmount(rs.getDouble("total_amount"));
+             
+             if(rs.getTimestamp("order_date") != null )
+             {
+            	 order.setOrderDate(rs.getTimestamp("order_date").toLocalDateTime());
+             }
+
+             return order;
+			
+		}, userId);	
+	}
+	
+	
 }

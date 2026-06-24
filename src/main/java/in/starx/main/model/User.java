@@ -1,5 +1,6 @@
 package in.starx.main.model;
 
+import java.time.LocalDateTime;
 
 public class User {
 
@@ -7,6 +8,9 @@ public class User {
 	private String name;
 	private String email;
 	private String password;
+	private String phone;
+	private String address;
+	private LocalDateTime createdAt;
 	
 	public User() {
 		super();
@@ -18,6 +22,19 @@ public class User {
 		this.name = name;
 		this.email = email;
 		this.password = password;
+	}
+	
+
+	public User(int id, String name, String email, String password, String phone, String address,
+			LocalDateTime createdAt) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.phone = phone;
+		this.address = address;
+		this.createdAt = createdAt;
 	}
 
 	public int getId() {
@@ -53,6 +70,30 @@ public class User {
 	}
 	
 	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
 	@Override
 	public String toString() {
 	    return "User [id=" + id + ", Username=" + name + ", email=" + email + ", password=" + password
